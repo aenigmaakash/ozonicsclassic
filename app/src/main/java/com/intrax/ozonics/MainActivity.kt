@@ -405,7 +405,7 @@ class MainActivity : AppCompatActivity() {
                  * Battery information receiving and setting up UI
                  */
                 sendCommand(BATTERY_INFORMATION_COMMAND)
-                val batteryInformation = receiveCommand().toInt()
+                val batteryInformation = receiveCommand().trim().toInt()
                 if(batteryInformation in 1..100){
                     if (batteryInformation in 1..25)
                         batDisplay(0)
