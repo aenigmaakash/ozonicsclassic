@@ -18,6 +18,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.lang.Exception
 import java.util.*
 
 
@@ -405,19 +406,21 @@ class MainActivity : AppCompatActivity() {
                  * Battery information receiving and setting up UI
                  */
                 sendCommand(BATTERY_INFORMATION_COMMAND)
-                val batteryInformation = receiveCommand().trim().toInt()
-                if(batteryInformation in 1..100){
-                    if (batteryInformation in 1..25)
-                        batDisplay(0)
-                    else if(batteryInformation in 26..50)
-                        batDisplay(1)
-                    else if(batteryInformation in 51..75)
-                        batDisplay(2)
-                    else if(batteryInformation in 76..100)
-                        batDisplay(3)
-                }
-                else
+                try{
+                    val batteryInformation = receiveCommand().trim().toInt()
+                    if(batteryInformation in 1..100){
+                        if (batteryInformation in 1..25)
+                            batDisplay(0)
+                        else if(batteryInformation in 26..50)
+                            batDisplay(1)
+                        else if(batteryInformation in 51..75)
+                            batDisplay(2)
+                        else if(batteryInformation in 76..100)
+                            batDisplay(3)
+                    }
+                }catch (e: Exception){
                     Toast.makeText(context, "Invalid battery response", Toast.LENGTH_SHORT).show()
+                }
 
                 /**
                  * Mode information receiving and setting up UI
